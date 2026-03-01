@@ -1,0 +1,251 @@
+@model VeterinariaGestion.Core.Entities.Venta
+@{
+    ViewData["Title"] = $"Venta {Model.NumeroVenta}";
+    var badgeClass = Model.EstadoPago switch
+    {
+        "Pagado"    => "bg-success",
+        "Pendiente" => "bg-warning text-dark",
+        "Parcial"   => "bg-info",
+        "Anulado"   => "bg-danger",
+        _           => "bg-secondary"
+    };
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>
+        <i class="bi bi-receipt text-warning"></i>
+        Venta <strong>@Model.NumeroVenta</strong>
+        <span class="badge @badgeClass ms-2">@Model.EstadoPago</span>
+    </h2>
+    <div class="d-flex gap-2">
+        @if (Model.EstadoPago != "Anulado")
+        {
+            <form asp-action="Anular" method="post" class="d-inline"
+                  onsubmit="return confirm('¿Anular esta venta? Se revertirá el stock.')">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" value="@Model.IdVenta" />
+                <button type="submit" class="btn btn-danger">
+                    <i class="bi bi-x-circle"></i> Anular Venta
+                </button>
+            </form>
+        }
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Volver
+        </a>
+    </div>
+</div>
+
+<div class="row g-4">
+
+    <!-- ── Datos de la venta ── -->
+    <div class="col-md-5">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-warning text-dark fw-bold">
+                <i class="bi bi-info-circle"></i> Datos de la Venta
+            </div>
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-5">N° Venta</dt>
+                    <dd class="col-sm-7">
+                        <strong class="text-warning">@Model.NumeroVenta</strong>
+                    </dd>
+
+                    <dt class="col-sm-5">Fecha</dt>
+                    <dd class="col-sm-7">
+                        @Model.Fecha?.ToString("dd/MM/yyyy HH:mm")
+                    </dd>
+
+                    <dt class="col-sm-5">Cliente</dt>
+                    <dd class="col-sm-7">
+                        @if (Model.Cliente is not null)
+                        {
+                            <a asp-controller="Clientes"
+                               asp-action="Detalle"
+                               asp-route-id="@Model.Cliente.IdCliente">
+                                @Model.Cliente.NombreCompleto
+                            </a>
+                        }
+                        else
+                        {
+                            <span class="text-muted">Consumidor Final</span>
+                        }
+                    </dd>
+
+                    <dt class="col-sm-5">Forma de Pago</dt>
+                    <dd class="col-sm-7">
+                        <span class="badge bg-secondary">@Model.FormaPago</span>
+                    </dd>
+
+                    <dt class="col-sm-5">Estado</dt>
+                    <dd class="col-sm-7">
+                        <span class="badge @badgeClass">@Model.EstadoPago</span>
+                    </dd>
+
+                    @if (!string.IsNullOrEmpty(Model.Observacion))
+                    {
+                        <dt class="col-sm-5">Observación</dt>
+                        <dd class="col-sm-7">@Model.Observacion</dd>
+                    }
+                </dl>
+
+                <hr />
+
+                <!-- Resumen de totales -->
+                <div class="d-flex justify-content-between mb-1">
+                    <span class="text-muted">Subtotal:</span>
+                    <span>$@Model.SubTotal.ToString("N2")</span>
+                </div>
+                @if (Model.Descuento > 0)
+                {
+                    <div class="d-flex justify-content-between mb-1 text-danger">
+                        <span>Descuento:</span>
+                        <span>-$@Model.Descuento.ToString("N2")</span>
+                    </div>
+                }
+                @if (Model.Recargo > 0)
+                {
+                    <div class="d-flex justify-content-between mb-1 text-primary">
+                        <span>Recargo:</span>
+                        <span>+$@Model.Recargo.ToString("N2")</span>
+                    </div>
+                }
+                <div class="d-flex justify-content-between p-2 bg-success text-white rounded mt-2">
+                    <span class="fw-bold fs-5">TOTAL:</span>
+                    <span class="fw-bold fs-5">$@Model.Total.ToString("N2")</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Detalle de productos ── -->
+    <div class="col-md-7">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white fw-bold">
+                <i class="bi bi-list-ul"></i>
+                Detalle de Productos
+                <span class="badge bg-light text-dark ms-2">
+                    @Model.Detalles.Count ítem(s)
+                </span>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-sm table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Código</th>
+                            <th>Producto</th>
+                            <th class="text-center">Cant.</th>
+                            <th class="text-end">Precio Unit.</th>
+                            <th class="text-end">Desc.</th>
+                            <th class="text-end">Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var d in Model.Detalles)
+                        {
+                            <tr>
+                                <td class="text-muted small">
+                                    @(d.Producto?.Codigo ?? "-")
+                                </td>
+                                <td>
+                                    <a asp-controller="Productos"
+                                       asp-action="Detalle"
+                                       asp-route-id="@d.IdProducto"
+                                       class="text-decoration-none">
+                                        @(d.Producto?.Nombre ?? "-")
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <span class="badge bg-secondary">@d.Cantidad</span>
+                                </td>
+                                <td class="text-end">
+                                    $@d.PrecioUnitario.ToString("N2")
+                                </td>
+                                <td class="text-end text-danger">
+                                    @if (d.DescuentoItem > 0)
+                                    {
+                                        <span>-$@d.DescuentoItem.ToString("N2")</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">-</span>
+                                    }
+                                </td>
+                                <td class="text-end fw-bold text-success">
+                                    $@d.SubTotalItem.ToString("N2")
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot class="table-light">
+                        <tr>
+                            <td colspan="5" class="text-end fw-bold">Total items:</td>
+                            <td class="text-end fw-bold text-success">
+                                $@Model.Detalles.Sum(d => d.SubTotalItem).ToString("N2")
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <!-- Cuotas si existen -->
+        @if (Model.Cuotas.Any())
+        {
+            <div class="card shadow-sm mt-3">
+                <div class="card-header bg-info text-white fw-bold">
+                    <i class="bi bi-calendar-check"></i>
+                    Cuotas
+                    <span class="badge bg-light text-dark ms-2">
+                        @Model.Cuotas.Count cuota(s)
+                    </span>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-sm mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="text-center">N°</th>
+                                <th>Vencimiento</th>
+                                <th class="text-end">Monto</th>
+                                <th class="text-end">Pagado</th>
+                                <th class="text-end">Saldo</th>
+                                <th class="text-center">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var c in Model.Cuotas.OrderBy(c => c.NumeroCuota))
+                            {
+                                <tr>
+                                    <td class="text-center">@c.NumeroCuota</td>
+                                    <td>
+                                        @c.FechaVencimiento?.ToString("dd/MM/yyyy")
+                                    </td>
+                                    <td class="text-end">
+                                        $@c.MontoCuota.ToString("N2")
+                                    </td>
+                                    <td class="text-end text-success">
+                                        $@c.MontoPagado.ToString("N2")
+                                    </td>
+                                    <td class="text-end text-danger">
+                                        $@c.SaldoPendiente.ToString("N2")
+                                    </td>
+                                    <td class="text-center">
+                                        @{
+                                            var cb = c.EstadoCuota switch
+                                            {
+                                                "Pagada"   => "bg-success",
+                                                "Vencida"  => "bg-danger",
+                                                "Parcial"  => "bg-info",
+                                                _          => "bg-warning text-dark"
+                                            };
+                                        }
+                                        <span class="badge @cb">@c.EstadoCuota</span>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+    </div>
+</div>

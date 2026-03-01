@@ -1,0 +1,526 @@
+@model VeterinariaGestion.Core.Entities.Venta
+@{
+    ViewData["Title"] = "Nueva Venta";
+}
+
+<h2 class="mb-3">
+    <i class="bi bi-cart-plus text-warning"></i> Nueva Venta
+</h2>
+
+<div class="row g-3">
+
+    <!-- ── Panel izquierdo: productos ── -->
+    <div class="col-lg-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-warning text-dark fw-bold">
+                <i class="bi bi-search"></i> Buscar y Agregar Productos
+            </div>
+            <div class="card-body">
+
+                <!-- Buscador de producto -->
+                <div class="row g-2 align-items-end mb-3">
+                    <div class="col-md-5">
+                        <label class="form-label fw-bold">
+                            Buscar producto (código o nombre)
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-search"></i>
+                            </span>
+                            <input type="text" id="inputBuscarProducto"
+                                   class="form-control"
+                                   placeholder="Ej: PROD-001 o Amoxicilina..."
+                                   autocomplete="off" />
+                        </div>
+                        <!-- Dropdown de resultados -->
+                        <div id="resultadosBusqueda"
+                             class="list-group position-absolute shadow"
+                             style="z-index:1000; display:none; width:350px">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold">Producto seleccionado</label>
+                        <input type="text" id="nombreProductoSeleccionado"
+                               class="form-control bg-light"
+                               readonly placeholder="Ninguno" />
+                        <input type="hidden" id="idProductoSeleccionado" />
+                        <input type="hidden" id="stockProductoSeleccionado" />
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label fw-bold">Cantidad</label>
+                        <input type="number" id="inputCantidad"
+                               class="form-control" value="1" min="1" />
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label fw-bold">Desc. ($)</label>
+                        <input type="number" id="inputDescItem"
+                               class="form-control" value="0" min="0" step="0.01" />
+                    </div>
+                </div>
+
+                <!-- Precios del producto seleccionado -->
+                <div id="infoPrecioProducto"
+                     class="alert alert-info py-2 mb-3" style="display:none">
+                    <div class="row text-center">
+                        <div class="col">
+                            <small class="text-muted d-block">Precio Minorista</small>
+                            <strong id="lblPrecioMin">$0.00</strong>
+                        </div>
+                        <div class="col">
+                            <small class="text-muted d-block">Precio Mayorista</small>
+                            <strong id="lblPrecioMay">$0.00</strong>
+                        </div>
+                        <div class="col">
+                            <small class="text-muted d-block">Stock Disponible</small>
+                            <strong id="lblStock">0</strong>
+                        </div>
+                        <div class="col d-flex align-items-end">
+                            <div class="btn-group w-100">
+                                <button type="button" class="btn btn-sm btn-outline-success"
+                                        onclick="usarPrecio('minorista')">
+                                    Minorista
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary"
+                                        onclick="usarPrecio('mayorista')">
+                                    Mayorista
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end mb-3">
+                    <button type="button" class="btn btn-warning"
+                            onclick="agregarProducto()">
+                        <i class="bi bi-plus-circle"></i> Agregar a la venta
+                    </button>
+                </div>
+
+                <!-- Tabla de ítems de la venta -->
+                <div class="table-responsive">
+                    <table class="table table-sm table-bordered align-middle"
+                           id="tablaItems">
+                        <thead class="table-warning">
+                            <tr>
+                                <th>Código</th>
+                                <th>Producto</th>
+                                <th class="text-center">Cant.</th>
+                                <th class="text-end">Precio Unit.</th>
+                                <th class="text-end">Desc.</th>
+                                <th class="text-end">Subtotal</th>
+                                <th class="text-center"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="itemsBody">
+                            <tr id="filaVacia">
+                                <td colspan="7" class="text-center text-muted py-4">
+                                    <i class="bi bi-cart-x fs-4 d-block mb-1"></i>
+                                    Buscá y agregá productos a la venta
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="table-light fw-bold">
+                                <td colspan="5" class="text-end">Subtotal:</td>
+                                <td class="text-end" id="footerSubtotal">$0.00</td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Panel derecho: datos de la venta ── -->
+    <div class="col-lg-4">
+        <form asp-action="Crear" method="post" id="formVenta">
+            @Html.AntiForgeryToken()
+
+            <!-- Cliente -->
+            <div class="card shadow-sm mb-3">
+                <div class="card-header bg-success text-white fw-bold">
+                    <i class="bi bi-person"></i> Cliente
+                </div>
+                <div class="card-body">
+                    <select asp-for="IdCliente" class="form-select">
+                        <option value="">-- Consumidor Final --</option>
+                        @foreach (var c in (ViewBag.Clientes as
+                            IEnumerable<VeterinariaGestion.Core.Entities.Cliente>)
+                            ?? Enumerable.Empty<VeterinariaGestion.Core.Entities.Cliente>())
+                        {
+                            <option value="@c.IdCliente">@c.NombreCompleto</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <!-- Totales -->
+            <div class="card shadow-sm mb-3">
+                <div class="card-header bg-warning text-dark fw-bold">
+                    <i class="bi bi-calculator"></i> Totales
+                </div>
+                <div class="card-body">
+                    <div class="mb-2">
+                        <label class="form-label small">Descuento general ($)</label>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text">$</span>
+                            <input asp-for="Descuento" type="number" class="form-control"
+                                   value="0" step="0.01" min="0"
+                                   oninput="calcularTotales()" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small">Recargo ($)</label>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text">$</span>
+                            <input asp-for="Recargo" type="number" class="form-control"
+                                   value="0" step="0.01" min="0"
+                                   oninput="calcularTotales()" />
+                        </div>
+                    </div>
+                    <hr class="my-2" />
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>Subtotal items:</span>
+                        <span id="lblSubtotal" class="fw-bold">$0.00</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-1 text-danger">
+                        <span>Descuento:</span>
+                        <span id="lblDescuento">-$0.00</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2 text-primary">
+                        <span>Recargo:</span>
+                        <span id="lblRecargo">+$0.00</span>
+                    </div>
+                    <div class="d-flex justify-content-between p-2 bg-success text-white rounded">
+                        <span class="fw-bold fs-5">TOTAL:</span>
+                        <span id="lblTotal" class="fw-bold fs-5">$0.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pago -->
+            <div class="card shadow-sm mb-3">
+                <div class="card-header bg-info text-white fw-bold">
+                    <i class="bi bi-credit-card"></i> Pago
+                </div>
+                <div class="card-body">
+                    <div class="mb-2">
+                        <label asp-for="FormaPago" class="form-label small fw-bold"></label>
+                        <select asp-for="FormaPago" class="form-select form-select-sm"
+                                onchange="toggleCuotas(this.value)">
+                            @foreach (var fp in (ViewBag.FormasPago as List<string>)
+                              ?? new List<string>())
+                            {
+                                <option value="@fp">@fp</option>
+                            }
+                        </select>
+                    </div>
+                    <div id="divCuotas" style="display:none" class="mb-2">
+                        <label class="form-label small fw-bold">Cantidad de cuotas</label>
+                        <input type="number" name="cantidadCuotas"
+                               class="form-control form-control-sm"
+                               value="1" min="1" max="24" />
+                    </div>
+                    <div class="mb-0">
+                        <label asp-for="Observacion" class="form-label small fw-bold"></label>
+                        <textarea asp-for="Observacion" class="form-control form-control-sm"
+                                  rows="2" placeholder="Observaciones opcionales...">
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Campos ocultos de los ítems -->
+            <div id="camposOcultos"></div>
+
+            <button type="button" class="btn btn-warning w-100 btn-lg fw-bold"
+                    onclick="confirmarVenta()">
+                <i class="bi bi-check-circle"></i> Confirmar Venta
+            </button>
+            <a asp-action="Index" class="btn btn-secondary w-100 mt-2">
+                <i class="bi bi-arrow-left"></i> Cancelar
+            </a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    // ── Estado de la venta ──────────────────────────────────────────────
+    let items = [];       // lista de ítems en la venta
+    let productoActual = null;  // producto seleccionado en el buscador
+
+    // ── Búsqueda de productos con debounce ──────────────────────────────
+    let timeoutBusqueda;
+    document.getElementById('inputBuscarProducto').addEventListener('input', function () {
+        clearTimeout(timeoutBusqueda);
+        const termino = this.value.trim();
+        if (termino.length < 2) {
+            ocultarResultados();
+            return;
+        }
+        timeoutBusqueda = setTimeout(() => buscarProductos(termino), 300);
+    });
+
+    // Cerrar dropdown al hacer clic fuera
+    document.addEventListener('click', function (e) {
+        if (!e.target.closest('#inputBuscarProducto') &&
+            !e.target.closest('#resultadosBusqueda')) {
+            ocultarResultados();
+        }
+    });
+
+    async function buscarProductos(termino) {
+        try {
+            const resp = await fetch(`/Ventas/BuscarProductos?termino=${encodeURIComponent(termino)}`);
+            const productos = await resp.json();
+            mostrarResultados(productos);
+        } catch (e) {
+            console.error('Error en búsqueda:', e);
+        }
+    }
+
+    function mostrarResultados(productos) {
+        const div = document.getElementById('resultadosBusqueda');
+        if (!productos.length) {
+            div.innerHTML = `<div class="list-group-item text-muted small">
+                                <i class="bi bi-search"></i> Sin resultados
+                             </div>`;
+            div.style.display = 'block';
+            return;
+        }
+
+        div.innerHTML = productos.map(p => `
+            <button type="button"
+                    class="list-group-item list-group-item-action py-2"
+                    onclick="seleccionarProducto(${p.id},'${escapar(p.codigo)}',
+                             '${escapar(p.nombre)}',${p.stock},
+                             ${p.precioMinorista},${p.precioMayorista})">
+                <div class="d-flex justify-content-between">
+                    <span>
+                        <strong>${p.codigo || ''}</strong>
+                        ${p.codigo ? ' - ' : ''}${p.nombre}
+                    </span>
+                    <small class="text-muted ms-2">Stock: ${p.stock}</small>
+                </div>
+                <small class="text-success">
+                    Min: $${p.precioMinorista.toFixed(2)} |
+                    May: $${p.precioMayorista.toFixed(2)}
+                </small>
+            </button>`).join('');
+        div.style.display = 'block';
+    }
+
+    function ocultarResultados() {
+        document.getElementById('resultadosBusqueda').style.display = 'none';
+    }
+
+    function seleccionarProducto(id, codigo, nombre, stock, precioMin, precioMay) {
+        productoActual = { id, codigo, nombre, stock, precioMin, precioMay };
+
+        document.getElementById('idProductoSeleccionado').value  = id;
+        document.getElementById('stockProductoSeleccionado').value = stock;
+        document.getElementById('nombreProductoSeleccionado').value =
+            `${codigo ? codigo + ' - ' : ''}${nombre}`;
+        document.getElementById('inputBuscarProducto').value = '';
+        document.getElementById('lblPrecioMin').textContent  = `$${precioMin.toFixed(2)}`;
+        document.getElementById('lblPrecioMay').textContent  = `$${precioMay.toFixed(2)}`;
+        document.getElementById('lblStock').textContent      = stock;
+        document.getElementById('infoPrecioProducto').style.display = 'block';
+        document.getElementById('inputCantidad').max = stock;
+
+        ocultarResultados();
+    }
+
+    function usarPrecio(tipo) {
+        // No hace falta hacer nada extra, el precio se asigna al agregar
+        document.getElementById('inputCantidad').focus();
+    }
+
+    // ── Agregar producto a la tabla ─────────────────────────────────────
+    function agregarProducto() {
+        const id = parseInt(document.getElementById('idProductoSeleccionado').value);
+        if (!id) { alert('Primero buscá y seleccioná un producto.'); return; }
+
+        const cant = parseInt(document.getElementById('inputCantidad').value) || 1;
+        const desc = parseFloat(document.getElementById('inputDescItem').value) || 0;
+        const stock = parseInt(document.getElementById('stockProductoSeleccionado').value) || 0;
+
+        if (cant < 1) { alert('La cantidad debe ser al menos 1.'); return; }
+        if (cant > stock) { alert(`Stock insuficiente. Disponible: ${stock}`); return; }
+
+        // Elegir precio según botón que se usó (por defecto minorista)
+        const precio = productoActual.precioMin;
+
+        // Si ya existe el producto en la lista, actualizar
+        const existente = items.find(i => i.id === id);
+        if (existente) {
+            const nuevaCant = existente.cantidad + cant;
+            if (nuevaCant > stock) {
+                alert(`Stock insuficiente. Ya tenés ${existente.cantidad} unidades. Disponible: ${stock}`);
+                return;
+            }
+            existente.cantidad  = nuevaCant;
+            existente.subtotal  = (existente.precio * existente.cantidad) - existente.desc;
+        } else {
+            items.push({
+                id:      id,
+                codigo:  productoActual.codigo,
+                nombre:  productoActual.nombre,
+                cantidad: cant,
+                precio:   precio,
+                desc:     desc,
+                subtotal: (precio * cant) - desc
+            });
+        }
+
+        renderTabla();
+        calcularTotales();
+        limpiarBuscador();
+    }
+
+    function limpiarBuscador() {
+        productoActual = null;
+        document.getElementById('idProductoSeleccionado').value        = '';
+        document.getElementById('stockProductoSeleccionado').value     = '';
+        document.getElementById('nombreProductoSeleccionado').value    = '';
+        document.getElementById('inputCantidad').value                 = 1;
+        document.getElementById('inputDescItem').value                 = 0;
+        document.getElementById('infoPrecioProducto').style.display    = 'none';
+        document.getElementById('inputBuscarProducto').focus();
+    }
+
+    // ── Render de la tabla de ítems ─────────────────────────────────────
+    function renderTabla() {
+        const tbody = document.getElementById('itemsBody');
+        if (!items.length) {
+            tbody.innerHTML = `<tr id="filaVacia">
+                <td colspan="7" class="text-center text-muted py-4">
+                    <i class="bi bi-cart-x fs-4 d-block mb-1"></i>
+                    Buscá y agregá productos a la venta
+                </td></tr>`;
+            document.getElementById('footerSubtotal').textContent = '$0.00';
+            return;
+        }
+
+        tbody.innerHTML = items.map((item, i) => `
+            <tr>
+                <td class="text-muted small">${item.codigo || '-'}</td>
+                <td>${item.nombre}</td>
+                <td class="text-center">
+                    <div class="input-group input-group-sm" style="width:90px">
+                        <button class="btn btn-outline-secondary btn-sm"
+                                type="button"
+                                onclick="cambiarCantidad(${i}, -1)">-</button>
+                        <input type="number" class="form-control text-center"
+                               value="${item.cantidad}" min="1"
+                               onchange="setCantidad(${i}, this.value)" />
+                        <button class="btn btn-outline-secondary btn-sm"
+                                type="button"
+                                onclick="cambiarCantidad(${i}, 1)">+</button>
+                    </div>
+                </td>
+                <td class="text-end">$${item.precio.toFixed(2)}</td>
+                <td class="text-end">
+                    <input type="number" class="form-control form-control-sm text-end"
+                           style="width:90px; margin-left:auto"
+                           value="${item.desc}" min="0" step="0.01"
+                           onchange="setDescuento(${i}, this.value)" />
+                </td>
+                <td class="text-end fw-bold text-success">
+                    $${item.subtotal.toFixed(2)}
+                </td>
+                <td class="text-center">
+                    <button type="button" class="btn btn-sm btn-danger"
+                            onclick="quitarItem(${i})" title="Quitar">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </td>
+            </tr>`).join('');
+
+        const subtotalItems = items.reduce((s, i) => s + i.subtotal, 0);
+        document.getElementById('footerSubtotal').textContent =
+            `$${subtotalItems.toFixed(2)}`;
+    }
+
+    // ── Edición inline de ítems ─────────────────────────────────────────
+    function cambiarCantidad(index, delta) {
+        const item     = items[index];
+        const nuevaCant = item.cantidad + delta;
+        if (nuevaCant < 1) return;
+        item.cantidad = nuevaCant;
+        item.subtotal = (item.precio * item.cantidad) - item.desc;
+        renderTabla();
+        calcularTotales();
+    }
+
+    function setCantidad(index, valor) {
+        const cant = parseInt(valor) || 1;
+        items[index].cantidad = Math.max(1, cant);
+        items[index].subtotal = (items[index].precio * items[index].cantidad)
+                                - items[index].desc;
+        renderTabla();
+        calcularTotales();
+    }
+
+    function setDescuento(index, valor) {
+        items[index].desc    = parseFloat(valor) || 0;
+        items[index].subtotal = (items[index].precio * items[index].cantidad)
+                                - items[index].desc;
+        renderTabla();
+        calcularTotales();
+    }
+
+    function quitarItem(index) {
+        items.splice(index, 1);
+        renderTabla();
+        calcularTotales();
+    }
+
+    // ── Cálculo de totales ──────────────────────────────────────────────
+    function calcularTotales() {
+        const subtotal  = items.reduce((s, i) => s + i.subtotal, 0);
+        const descuento = parseFloat(
+            document.querySelector('[name="Descuento"]').value) || 0;
+        const recargo   = parseFloat(
+            document.querySelector('[name="Recargo"]').value) || 0;
+        const total = subtotal - descuento + recargo;
+
+        document.getElementById('lblSubtotal').textContent  = `$${subtotal.toFixed(2)}`;
+        document.getElementById('lblDescuento').textContent = `-$${descuento.toFixed(2)}`;
+        document.getElementById('lblRecargo').textContent   = `+$${recargo.toFixed(2)}`;
+        document.getElementById('lblTotal').textContent     = `$${total.toFixed(2)}`;
+    }
+
+    // ── Forma de pago ───────────────────────────────────────────────────
+    function toggleCuotas(valor) {
+        document.getElementById('divCuotas').style.display =
+            valor === 'Cuenta Corriente' ? 'block' : 'none';
+    }
+
+    // ── Confirmar y enviar formulario ───────────────────────────────────
+    function confirmarVenta() {
+        if (!items.length) {
+            alert('Debe agregar al menos un producto a la venta.');
+            return;
+        }
+
+        // Llenar campos ocultos con los ítems
+        const div = document.getElementById('camposOcultos');
+        div.innerHTML = items.map(item => `
+            <input type="hidden" name="productoIds" value="${item.id}" />
+            <input type="hidden" name="cantidades"  value="${item.cantidad}" />
+            <input type="hidden" name="precios"     value="${item.precio}" />
+            <input type="hidden" name="descuentos"  value="${item.desc}" />`
+        ).join('');
+
+        document.getElementById('formVenta').submit();
+    }
+
+    // ── Helper para escapar caracteres en strings JS ────────────────────
+    function escapar(str) {
+        return (str || '').replace(/'/g, "\\'").replace(/"/g, '\\"');
+    }
+</script>
+}

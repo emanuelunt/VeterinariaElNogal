@@ -1,0 +1,11 @@
+D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Core\bin\Debug\net9.0\VeterinariaGestion.Core.deps.json
+D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Core\bin\Debug\net9.0\VeterinariaGestion.Core.dll
+D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Core\bin\Debug\net9.0\VeterinariaGestion.Core.pdb
+D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Core\obj\Debug\net9.0\VeterinariaGestion.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Core\obj\Debug\net9.0\VeterinariaGestion.Core.AssemblyInfoInputs.cache
+D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Core\obj\Debug\net9.0\VeterinariaGestion.Core.AssemblyInfo.cs
+D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Core\obj\Debug\net9.0\VeterinariaGestion.Core.csproj.CoreCompileInputs.cache
+D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Core\obj\Debug\net9.0\VeterinariaGestion.Core.dll
+D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Core\obj\Debug\net9.0\refint\VeterinariaGestion.Core.dll
+D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Core\obj\Debug\net9.0\VeterinariaGestion.Core.pdb
+D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Core\obj\Debug\net9.0\ref\VeterinariaGestion.Core.dll

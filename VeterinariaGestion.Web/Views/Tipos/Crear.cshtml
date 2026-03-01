@@ -1,0 +1,40 @@
+@model VeterinariaGestion.Core.Entities.Tipo
+@{
+    ViewData["Title"] = "Nuevo Tipo";
+}
+
+<h2 class="mb-4">
+    <i class="bi bi-tag text-primary"></i> Nuevo Tipo de Producto
+</h2>
+
+<div class="card shadow-sm" style="max-width:500px">
+    <div class="card-body">
+        <form asp-action="Crear" method="post">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="Descripcion" class="form-label fw-bold"></label>
+                <input asp-for="Descripcion" class="form-control"
+                       placeholder="Ej: Medicamentos, Alimentos, Accesorios..." />
+                <span asp-validation-for="Descripcion" class="text-danger small"></span>
+                <div class="form-text text-muted">
+                    Ingresá una descripción única para el tipo de producto.
+                </div>
+            </div>
+
+            <div class="d-flex gap-2 mt-4">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-circle"></i> Guardar
+                </button>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

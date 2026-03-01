@@ -1,0 +1,15 @@
+D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Infrastructure\bin\Debug\net9.0\VeterinariaGestion.Infrastructure.deps.json
+D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Infrastructure\bin\Debug\net9.0\VeterinariaGestion.Infrastructure.dll
+D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Infrastructure\bin\Debug\net9.0\VeterinariaGestion.Infrastructure.pdb
+D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Infrastructure\bin\Debug\net9.0\VeterinariaGestion.Core.dll
+D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Infrastructure\bin\Debug\net9.0\VeterinariaGestion.Core.pdb
+D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Infrastructure\obj\Debug\net9.0\VeterinariaGestion.Infrastructure.csproj.AssemblyReference.cache
+D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Infrastructure\obj\Debug\net9.0\VeterinariaGestion.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Infrastructure\obj\Debug\net9.0\VeterinariaGestion.Infrastructure.AssemblyInfoInputs.cache
+D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Infrastructure\obj\Debug\net9.0\VeterinariaGestion.Infrastructure.AssemblyInfo.cs
+D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Infrastructure\obj\Debug\net9.0\VeterinariaGestion.Infrastructure.csproj.CoreCompileInputs.cache
+D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Infrastructure\obj\Debug\net9.0\Veterina.D2E227BE.Up2Date
+D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Infrastructure\obj\Debug\net9.0\VeterinariaGestion.Infrastructure.dll
+D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Infrastructure\obj\Debug\net9.0\refint\VeterinariaGestion.Infrastructure.dll
+D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Infrastructure\obj\Debug\net9.0\VeterinariaGestion.Infrastructure.pdb
+D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Infrastructure\obj\Debug\net9.0\ref\VeterinariaGestion.Infrastructure.dll

@@ -1,0 +1,142 @@
+@model VeterinariaGestion.Web.Models.PaginatedList<VeterinariaGestion.Core.Entities.Proveedor>
+@{
+    ViewData["Title"] = "Proveedores";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-truck text-success"></i> Proveedores</h2>
+    <a asp-action="Crear" class="btn btn-success">
+        <i class="bi bi-plus-circle"></i> Nuevo Proveedor
+    </a>
+</div>
+
+<!-- Buscador -->
+<form method="get" class="mb-4">
+    <div class="input-group" style="max-width:450px">
+        <input type="text" name="buscar" class="form-control"
+               value="@ViewBag.Buscar"
+               placeholder="Buscar por razón social, CUIL o email..." />
+        <button class="btn btn-outline-success" type="submit">
+            <i class="bi bi-search"></i> Buscar
+        </button>
+        @if (!string.IsNullOrEmpty(ViewBag.Buscar as string))
+        {
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                <i class="bi bi-x"></i> Limpiar
+            </a>
+        }
+    </div>
+</form>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        <i class="bi bi-info-circle"></i> No se encontraron proveedores.
+    </div>
+}
+else
+{
+    <div class="mb-2 text-muted small">
+        Mostrando @Model.Count de @Model.TotalCount proveedores
+        — Página @Model.PageIndex de @Model.TotalPages
+    </div>
+
+    <table class="table table-striped table-hover table-bordered align-middle">
+        <thead class="table-success">
+            <tr>
+                <th>Razón Social</th>
+                <th>CUIL/CUIT</th>
+                <th>Teléfono</th>
+                <th>Email</th>
+                <th>Alta</th>
+                <th class="text-center">Estado</th>
+                <th class="text-center">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model)
+            {
+                <tr class="@(p.Estado == 0 ? "table-secondary text-muted" : "")">
+                    <td>
+                        <strong>@p.RazonSocial</strong>
+                    </td>
+                    <td>@(p.CuilCuit ?? "-")</td>
+                    <td>@(p.Telefono ?? "-")</td>
+                    <td>@(p.Email ?? "-")</td>
+                    <td>@(p.FechaAlta?.ToString("dd/MM/yyyy") ?? "-")</td>
+                    <td class="text-center">
+                        <!-- Toggle de estado directo desde el listado -->
+                        <form asp-action="CambiarEstado" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@p.IdProveedor" />
+                            <button type="submit"
+                                    class="btn btn-sm @(p.Estado == 1 ? "btn-success" : "btn-secondary")"
+                                    title="@(p.Estado == 1 ? "Desactivar" : "Activar")">
+                                @if (p.Estado == 1)
+                                {
+                                    <i class="bi bi-check-circle"></i>
+                                    <span>Activo</span>
+                                }
+                                else
+                                {
+                                    <i class="bi bi-x-circle"></i>
+                                    <span>Inactivo</span>
+                                }
+                            </button>
+                        </form>
+                    </td>
+                    <td class="text-center">
+                        <a asp-action="Detalle" asp-route-id="@p.IdProveedor"
+                           class="btn btn-sm btn-info text-white" title="Ver detalle">
+                            <i class="bi bi-eye"></i>
+                        </a>
+                        <a asp-action="Editar" asp-route-id="@p.IdProveedor"
+                           class="btn btn-sm btn-warning" title="Editar">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        <a asp-action="Eliminar" asp-route-id="@p.IdProveedor"
+                           class="btn btn-sm btn-danger" title="Eliminar">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Paginador -->
+    @if (Model.TotalPages > 1)
+    {
+        <nav>
+            <ul class="pagination justify-content-center">
+                <li class="page-item @(!Model.HasPreviousPage ? "disabled" : "")">
+                    <a class="page-link"
+                       asp-action="Index"
+                       asp-route-pagina="@(Model.PageIndex - 1)"
+                       asp-route-buscar="@ViewBag.Buscar">
+                        <i class="bi bi-chevron-left"></i> Anterior
+                    </a>
+                </li>
+
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                        <a class="page-link"
+                           asp-action="Index"
+                           asp-route-pagina="@i"
+                           asp-route-buscar="@ViewBag.Buscar">@i</a>
+                    </li>
+                }
+
+                <li class="page-item @(!Model.HasNextPage ? "disabled" : "")">
+                    <a class="page-link"
+                       asp-action="Index"
+                       asp-route-pagina="@(Model.PageIndex + 1)"
+                       asp-route-buscar="@ViewBag.Buscar">
+                        Siguiente <i class="bi bi-chevron-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    }
+}

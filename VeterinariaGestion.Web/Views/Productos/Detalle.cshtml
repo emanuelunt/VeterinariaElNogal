@@ -1,0 +1,86 @@
+@model VeterinariaGestion.Core.Entities.Producto
+@{
+    ViewData["Title"] = "Detalle del Producto";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-box-seam text-primary"></i> @Model.Nombre</h2>
+    <div class="d-flex gap-2">
+        <a asp-action="Editar" asp-route-id="@Model.IdProducto" class="btn btn-warning">
+            <i class="bi bi-pencil"></i> Editar
+        </a>
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Volver
+        </a>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-6">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-primary text-white">
+                <i class="bi bi-info-circle"></i> Información General
+            </div>
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-5">Código</dt>
+                    <dd class="col-sm-7">@(Model.Codigo ?? "-")</dd>
+
+                    <dt class="col-sm-5">Nombre</dt>
+                    <dd class="col-sm-7"><strong>@Model.Nombre</strong></dd>
+
+                    <dt class="col-sm-5">Tipo</dt>
+                    <dd class="col-sm-7">@(Model.Tipo?.Descripcion ?? "-")</dd>
+
+                    <dt class="col-sm-5">Proveedor</dt>
+                    <dd class="col-sm-7">@(Model.Proveedor?.RazonSocial ?? "-")</dd>
+
+                    <dt class="col-sm-5">Descripción</dt>
+                    <dd class="col-sm-7">@(Model.Descripcion ?? "-")</dd>
+
+                    <dt class="col-sm-5">Estado</dt>
+                    <dd class="col-sm-7">
+                        <span class="badge @(Model.Estado == 1 ? "bg-success" : "bg-danger")">
+                            @(Model.Estado == 1 ? "Activo" : "Inactivo")
+                        </span>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-success text-white">
+                <i class="bi bi-currency-dollar"></i> Precios y Stock
+            </div>
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-5">Stock Actual</dt>
+                    <dd class="col-sm-7">
+                        @if (Model.Stock <= 5)
+                        {
+                            <span class="badge bg-warning text-dark fs-6">
+                                @Model.Stock unidades ⚠
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-success fs-6">@Model.Stock unidades</span>
+                        }
+                    </dd>
+
+                    <dt class="col-sm-5">Precio Minorista</dt>
+                    <dd class="col-sm-7 fs-5 text-success fw-bold">
+                        $@Model.PrecioMinorista.ToString("N2")
+                    </dd>
+
+                    <dt class="col-sm-5">Precio Mayorista</dt>
+                    <dd class="col-sm-7 fs-5 text-primary fw-bold">
+                        $@Model.PrecioMayorista.ToString("N2")
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>

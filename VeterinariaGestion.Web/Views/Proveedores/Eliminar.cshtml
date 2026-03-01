@@ -1,0 +1,58 @@
+@model VeterinariaGestion.Core.Entities.Proveedor
+@{
+    ViewData["Title"] = "Eliminar Proveedor";
+}
+
+<h2 class="mb-4 text-danger">
+    <i class="bi bi-exclamation-triangle"></i> Eliminar Proveedor
+</h2>
+
+<div class="card shadow-sm border-danger" style="max-width:600px">
+    <div class="card-header bg-danger text-white">
+        ¿Está seguro que desea eliminar este proveedor?
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-4">Razón Social</dt>
+            <dd class="col-sm-8"><strong>@Model.RazonSocial</strong></dd>
+
+            <dt class="col-sm-4">CUIL/CUIT</dt>
+            <dd class="col-sm-8">@(Model.CuilCuit ?? "-")</dd>
+
+            <dt class="col-sm-4">Teléfono</dt>
+            <dd class="col-sm-8">@(Model.Telefono ?? "-")</dd>
+
+            <dt class="col-sm-4">Email</dt>
+            <dd class="col-sm-8">@(Model.Email ?? "-")</dd>
+        </dl>
+
+        @if (Model.Productos.Any())
+        {
+            <div class="alert alert-warning mt-2">
+                <i class="bi bi-exclamation-triangle"></i>
+                Este proveedor tiene <strong>@Model.Productos.Count producto(s)</strong> asociado(s).
+                No se eliminará físicamente, solo se <strong>desactivará</strong>.
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-danger mt-2">
+                <i class="bi bi-trash"></i>
+                Este proveedor no tiene productos asociados y será
+                <strong>eliminado permanentemente</strong>.
+            </div>
+        }
+
+        <form asp-action="Eliminar" method="post" class="d-flex gap-2 mt-3">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="IdProveedor" />
+            <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash"></i>
+                @(Model.Productos.Any() ? "Desactivar" : "Eliminar definitivamente")
+            </button>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Cancelar
+            </a>
+        </form>
+    </div>
+</div>

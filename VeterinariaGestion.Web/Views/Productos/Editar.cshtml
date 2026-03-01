@@ -1,0 +1,98 @@
+@model VeterinariaGestion.Core.Entities.Producto
+@{
+    ViewData["Title"] = "Editar Producto";
+}
+
+<h2 class="mb-4">
+    <i class="bi bi-pencil-square text-warning"></i> Editar Producto
+</h2>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form asp-action="Editar" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="IdProducto" />
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+            <div class="row g-3">
+
+                <div class="col-md-4">
+                    <label asp-for="Codigo" class="form-label"></label>
+                    <input asp-for="Codigo" class="form-control" />
+                    <span asp-validation-for="Codigo" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-8">
+                    <label asp-for="Nombre" class="form-label"></label>
+                    <input asp-for="Nombre" class="form-control" />
+                    <span asp-validation-for="Nombre" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="IdTipo" class="form-label"></label>
+                    <select asp-for="IdTipo" asp-items="ViewBag.Tipos" class="form-select">
+                        <option value="">Seleccionar tipo...</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="IdProveedor" class="form-label"></label>
+                    <select asp-for="IdProveedor" asp-items="ViewBag.Proveedores" class="form-select">
+                        <option value="">Seleccionar proveedor...</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="Stock" class="form-label"></label>
+                    <input asp-for="Stock" type="number" class="form-control" min="0" />
+                    <span asp-validation-for="Stock" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="PrecioMinorista" class="form-label"></label>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input asp-for="PrecioMinorista" type="number"
+                               class="form-control" min="0" step="0.01" />
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="PrecioMayorista" class="form-label"></label>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input asp-for="PrecioMayorista" type="number"
+                               class="form-control" min="0" step="0.01" />
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <label asp-for="Descripcion" class="form-label"></label>
+                    <textarea asp-for="Descripcion" class="form-control" rows="3"></textarea>
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="Estado" class="form-label"></label>
+                    <select asp-for="Estado" class="form-select">
+                        <option value="1">Activo</option>
+                        <option value="0">Inactivo</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="mt-4 d-flex gap-2">
+                <button type="submit" class="btn btn-warning">
+                    <i class="bi bi-check-circle"></i> Actualizar
+                </button>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
