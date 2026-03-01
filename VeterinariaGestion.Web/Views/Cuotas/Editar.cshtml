@@ -1,0 +1,101 @@
+@model VeterinariaGestion.Core.Entities.Cuota
+@{
+    ViewData["Title"] = "Editar Cuota";
+}
+
+<h2 class="mb-4">
+    <i class="bi bi-pencil-square text-warning"></i> Editar Cuota
+</h2>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form asp-action="Editar" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="IdCuota" />
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div asp-validation-summary="All" class="alert alert-danger"></div>
+            }
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label asp-for="IdVenta" class="form-label fw-bold"></label>
+                    <select asp-for="IdVenta" class="form-select" asp-items="ViewBag.Ventas" required>
+                        <option value="0">Seleccione venta...</option>
+                    </select>
+                    <span asp-validation-for="IdVenta" class="text-danger small"></span>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="NumeroCuota" class="form-label fw-bold"></label>
+                    <input asp-for="NumeroCuota" type="number" class="form-control" min="1" required />
+                    <span asp-validation-for="NumeroCuota" class="text-danger small"></span>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="FechaVencimiento" class="form-label fw-bold"></label>
+                    <input asp-for="FechaVencimiento" type="date" class="form-control" />
+                    <span asp-validation-for="FechaVencimiento" class="text-danger small"></span>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="MontoCuota" class="form-label fw-bold"></label>
+                    <input asp-for="MontoCuota" type="number" class="form-control" step="0.01" min="0.01" required />
+                    <span asp-validation-for="MontoCuota" class="text-danger small"></span>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="InteresMora" class="form-label fw-bold"></label>
+                    <input asp-for="InteresMora" type="number" class="form-control" step="0.01" min="0" />
+                    <span asp-validation-for="InteresMora" class="text-danger small"></span>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="MontoPagado" class="form-label fw-bold"></label>
+                    <input asp-for="MontoPagado" type="number" class="form-control" step="0.01" min="0" />
+                    <span asp-validation-for="MontoPagado" class="text-danger small"></span>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="FechaPago" class="form-label fw-bold"></label>
+                    <input asp-for="FechaPago" type="date" class="form-control" />
+                    <span asp-validation-for="FechaPago" class="text-danger small"></span>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="SaldoPendiente" class="form-label fw-bold"></label>
+                    <input asp-for="SaldoPendiente" class="form-control" readonly />
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="EstadoCuota" class="form-label fw-bold"></label>
+                    <select asp-for="EstadoCuota" class="form-select">
+                        @foreach (var e in (List<string>)ViewBag.EstadosCuota)
+                        {
+                            if (Model.EstadoCuota == e)
+                            {
+                                <option value="@e" selected>@e</option>
+                            }
+                            else
+                            {
+                                <option value="@e">@e</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="Estado" class="form-label fw-bold"></label>
+                    <select asp-for="Estado" class="form-select">
+                        <option value="1">Activo</option>
+                        <option value="0">Inactivo</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="d-flex gap-2 mt-4">
+                <button type="submit" class="btn btn-warning">
+                    <i class="bi bi-check-circle"></i> Actualizar
+                </button>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

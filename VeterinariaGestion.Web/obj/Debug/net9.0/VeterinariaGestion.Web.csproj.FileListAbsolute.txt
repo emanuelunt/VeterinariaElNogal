@@ -2,7 +2,6 @@ D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestio
 D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Web\bin\Debug\net9.0\appsettings.json
 D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Web\bin\Debug\net9.0\VeterinariaGestion.Web.staticwebassets.runtime.json
 D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Web\bin\Debug\net9.0\VeterinariaGestion.Web.staticwebassets.endpoints.json
-D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Web\bin\Debug\net9.0\VeterinariaGestion.Web.exe
 D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Web\bin\Debug\net9.0\VeterinariaGestion.Web.deps.json
 D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Web\bin\Debug\net9.0\VeterinariaGestion.Web.runtimeconfig.json
 D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Web\bin\Debug\net9.0\VeterinariaGestion.Web.dll
@@ -196,3 +195,5 @@ D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestio
 D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Web\obj\Debug\net9.0\VeterinariaGestion.Web.pdb
 D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Web\obj\Debug\net9.0\VeterinariaGestion.Web.genruntimeconfig.cache
 D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Web\obj\Debug\net9.0\ref\VeterinariaGestion.Web.dll
+D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Web\obj\Debug\net9.0\VeterinariaGestion.Web.sourcelink.json
+D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Web\bin\Debug\net9.0\VeterinariaGestion.Web.exe

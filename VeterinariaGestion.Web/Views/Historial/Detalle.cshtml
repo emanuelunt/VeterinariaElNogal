@@ -1,0 +1,99 @@
+@model VeterinariaGestion.Core.Entities.Historial
+@{
+    ViewData["Title"] = "Detalle de Historial";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>
+        <i class="bi bi-journal-medical text-success"></i>
+        Historial #@Model.IdHistorial
+    </h2>
+    <div class="d-flex gap-2">
+        <a asp-action="Editar" asp-route-id="@Model.IdHistorial" class="btn btn-warning">
+            <i class="bi bi-pencil"></i> Editar
+        </a>
+        <form asp-action="Eliminar" method="post" class="d-inline"
+              onsubmit="return confirm('Desea eliminar este historial?')">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="id" value="@Model.IdHistorial" />
+            <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash"></i> Eliminar
+            </button>
+        </form>
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Volver
+        </a>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-6">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-success text-white">
+                <i class="bi bi-info-circle"></i> Datos de la Consulta
+            </div>
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-5">Fecha Consulta</dt>
+                    <dd class="col-sm-7">@(Model.FechaConsulta?.ToString("dd/MM/yyyy") ?? "-")</dd>
+
+                    <dt class="col-sm-5">Motivo</dt>
+                    <dd class="col-sm-7">@(Model.MotivoConsulta ?? "-")</dd>
+
+                    <dt class="col-sm-5">Diagnostico</dt>
+                    <dd class="col-sm-7">@(Model.Diagnostico ?? "-")</dd>
+
+                    <dt class="col-sm-5">Tratamiento</dt>
+                    <dd class="col-sm-7">@(Model.Tratamiento ?? "-")</dd>
+
+                    <dt class="col-sm-5">Indicacion</dt>
+                    <dd class="col-sm-7">@(Model.Indicacion ?? "-")</dd>
+
+                    <dt class="col-sm-5">Proximo Control</dt>
+                    <dd class="col-sm-7">@(Model.ProximoControl?.ToString("dd/MM/yyyy") ?? "-")</dd>
+
+                    <dt class="col-sm-5">Observacion</dt>
+                    <dd class="col-sm-7">@(Model.Observacion ?? "-")</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card shadow-sm mb-3">
+            <div class="card-header bg-info text-white">
+                <i class="bi bi-heart-pulse"></i> Mascota
+            </div>
+            <div class="card-body">
+                <p class="mb-1"><strong>@(Model.Mascota?.Nombre ?? "-")</strong></p>
+                <p class="mb-1">Especie: @(Model.Mascota?.Especie?.Descripcion ?? "-")</p>
+                <p class="mb-0">
+                    Cliente:
+                    <a asp-controller="Clientes" asp-action="Detalle" asp-route-id="@Model.Mascota?.IdCliente">
+                        @(Model.Mascota?.Cliente?.NombreCompleto ?? "-")
+                    </a>
+                </p>
+            </div>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <i class="bi bi-calendar-check"></i> Turno Asociado
+            </div>
+            <div class="card-body">
+                @if (Model.Turno is null)
+                {
+                    <p class="text-muted mb-0">No hay turno asociado.</p>
+                }
+                else
+                {
+                    <p class="mb-1">
+                        <strong>Fecha:</strong> @(Model.Turno.Fecha?.ToString("dd/MM/yyyy") ?? "-")
+                    </p>
+                    <p class="mb-1"><strong>Hora:</strong> @(Model.Turno.HoraTurno ?? "-")</p>
+                    <p class="mb-0"><strong>Estado:</strong> @(Model.Turno.EstadoTurno ?? "-")</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,115 @@
+@model VeterinariaGestion.Core.Entities.Mascota
+@{
+    ViewData["Title"] = "Detalle de Mascota";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-heart-pulse text-info"></i> @(Model.Nombre ?? "Mascota")</h2>
+    <div class="d-flex gap-2">
+        <a asp-action="Editar" asp-route-id="@Model.IdMascota" class="btn btn-warning">
+            <i class="bi bi-pencil"></i> Editar
+        </a>
+        <form asp-action="CambiarEstado" method="post" class="d-inline">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="id" value="@Model.IdMascota" />
+            <button type="submit" class="btn @(Model.Estado == 1 ? "btn-outline-danger" : "btn-outline-success")">
+                @(Model.Estado == 1 ? "Desactivar" : "Activar")
+            </button>
+        </form>
+        <a asp-action="Index" asp-route-idCliente="@Model.IdCliente" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Volver
+        </a>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-5">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-info text-white">
+                <i class="bi bi-info-circle"></i> Informacion
+            </div>
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-5">ID</dt>
+                    <dd class="col-sm-7 text-muted">#@Model.IdMascota</dd>
+
+                    <dt class="col-sm-5">Nombre</dt>
+                    <dd class="col-sm-7"><strong>@(Model.Nombre ?? "-")</strong></dd>
+
+                    <dt class="col-sm-5">Cliente</dt>
+                    <dd class="col-sm-7">
+                        <a asp-controller="Clientes" asp-action="Detalle" asp-route-id="@Model.IdCliente">
+                            @(Model.Cliente?.NombreCompleto ?? "-")
+                        </a>
+                    </dd>
+
+                    <dt class="col-sm-5">Especie</dt>
+                    <dd class="col-sm-7">@(Model.Especie?.Descripcion ?? "-")</dd>
+
+                    <dt class="col-sm-5">Sexo</dt>
+                    <dd class="col-sm-7">@(Model.Sexo ?? "-")</dd>
+
+                    <dt class="col-sm-5">Nacimiento</dt>
+                    <dd class="col-sm-7">@(Model.FechaNaci?.ToString("dd/MM/yyyy") ?? "-")</dd>
+
+                    <dt class="col-sm-5">Estado</dt>
+                    <dd class="col-sm-7">
+                        <span class="badge @(Model.Estado == 1 ? "bg-success" : "bg-secondary")">
+                            @(Model.Estado == 1 ? "Activo" : "Inactivo")
+                        </span>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-7">
+        <div class="card shadow-sm mb-3">
+            <div class="card-header bg-primary text-white">
+                <i class="bi bi-calendar-check"></i> Turnos
+            </div>
+            <div class="card-body">
+                @if (!Model.Turnos.Any())
+                {
+                    <p class="text-muted mb-0">No hay turnos registrados.</p>
+                }
+                else
+                {
+                    <ul class="list-group list-group-flush">
+                        @foreach (var t in Model.Turnos.OrderByDescending(t => t.Fecha).Take(5))
+                        {
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>@(t.Fecha?.ToString("dd/MM/yyyy") ?? "-") @t.HoraTurno</span>
+                                <span class="badge bg-secondary">@t.EstadoTurno</span>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-header bg-success text-white">
+                <i class="bi bi-journal-medical"></i> Historial
+            </div>
+            <div class="card-body">
+                @if (!Model.Historiales.Any())
+                {
+                    <p class="text-muted mb-0">No hay historiales registrados.</p>
+                }
+                else
+                {
+                    <ul class="list-group list-group-flush">
+                        @foreach (var h in Model.Historiales.OrderByDescending(h => h.FechaConsulta).Take(5))
+                        {
+                            <li class="list-group-item">
+                                <div class="fw-bold">@(h.FechaConsulta?.ToString("dd/MM/yyyy") ?? "-")</div>
+                                <div>@(h.MotivoConsulta ?? "Sin motivo")</div>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+    </div>
+</div>

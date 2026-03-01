@@ -1,0 +1,151 @@
+@model VeterinariaGestion.Web.Models.PaginatedList<VeterinariaGestion.Core.Entities.Mascota>
+@{
+    ViewData["Title"] = "Mascotas";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-heart-pulse text-info"></i> Mascotas</h2>
+    <a asp-action="Crear" asp-route-idCliente="@ViewBag.IdCliente" class="btn btn-info text-white">
+        <i class="bi bi-plus-circle"></i> Nueva Mascota
+    </a>
+</div>
+
+<form method="get" class="mb-4">
+    <div class="row g-2">
+        <input type="hidden" name="idCliente" value="@ViewBag.IdCliente" />
+        <div class="col-md-5">
+            <div class="input-group">
+                <input type="text" name="buscar" class="form-control"
+                       value="@ViewBag.Buscar"
+                       placeholder="Buscar por nombre, cliente o especie..." />
+                <button class="btn btn-outline-info" type="submit">
+                    <i class="bi bi-search"></i> Buscar
+                </button>
+                @if (!string.IsNullOrEmpty(ViewBag.Buscar as string) || ViewBag.IdCliente != null)
+                {
+                    <a asp-action="Index" class="btn btn-outline-secondary">
+                        <i class="bi bi-x"></i> Limpiar
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+</form>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        <i class="bi bi-info-circle"></i> No se encontraron mascotas.
+    </div>
+}
+else
+{
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <small class="text-muted">
+            Mostrando <strong>@Model.Count</strong> de <strong>@Model.TotalCount</strong> mascotas
+            - Pagina <strong>@Model.PageIndex</strong> de <strong>@Model.TotalPages</strong>
+        </small>
+    </div>
+
+    <table class="table table-striped table-hover table-bordered align-middle">
+        <thead class="table-info">
+            <tr>
+                <th>Nombre</th>
+                <th>Cliente</th>
+                <th>Especie</th>
+                <th>Sexo</th>
+                <th>Nacimiento</th>
+                <th class="text-center">Estado</th>
+                <th class="text-center">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var m in Model)
+            {
+                <tr class="@(m.Estado == 0 ? "table-secondary text-muted" : "")">
+                    <td><strong>@(m.Nombre ?? "-")</strong></td>
+                    <td>
+                        <a asp-controller="Clientes" asp-action="Detalle" asp-route-id="@m.IdCliente"
+                           class="text-decoration-none">
+                            @(m.Cliente?.NombreCompleto ?? "-")
+                        </a>
+                    </td>
+                    <td>@(m.Especie?.Descripcion ?? "-")</td>
+                    <td>@(m.Sexo ?? "-")</td>
+                    <td>@(m.FechaNaci?.ToString("dd/MM/yyyy") ?? "-")</td>
+                    <td class="text-center">
+                        <form asp-action="CambiarEstado" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@m.IdMascota" />
+                            <button type="submit"
+                                    class="btn btn-sm @(m.Estado == 1 ? "btn-success" : "btn-secondary")">
+                                @(m.Estado == 1 ? "Activo" : "Inactivo")
+                            </button>
+                        </form>
+                    </td>
+                    <td class="text-center">
+                        <a asp-action="Detalle" asp-route-id="@m.IdMascota"
+                           class="btn btn-sm btn-info text-white" title="Ver detalle">
+                            <i class="bi bi-eye"></i>
+                        </a>
+                        <a asp-action="Editar" asp-route-id="@m.IdMascota"
+                           class="btn btn-sm btn-warning" title="Editar">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        <form asp-action="Eliminar" method="post" class="d-inline"
+                              onsubmit="return confirm('Desea eliminar esta mascota?')">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@m.IdMascota" />
+                            <button type="submit" class="btn btn-sm btn-danger" title="Eliminar">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (Model.TotalPages > 1)
+    {
+        <nav aria-label="Paginacion mascotas">
+            <ul class="pagination justify-content-center">
+                <li class="page-item @(!Model.HasPreviousPage ? "disabled" : "")">
+                    <a class="page-link" asp-action="Index" asp-route-pagina="1"
+                       asp-route-buscar="@ViewBag.Buscar" asp-route-idCliente="@ViewBag.IdCliente">
+                        <i class="bi bi-chevron-double-left"></i>
+                    </a>
+                </li>
+                <li class="page-item @(!Model.HasPreviousPage ? "disabled" : "")">
+                    <a class="page-link" asp-action="Index" asp-route-pagina="@(Model.PageIndex - 1)"
+                       asp-route-buscar="@ViewBag.Buscar" asp-route-idCliente="@ViewBag.IdCliente">
+                        <i class="bi bi-chevron-left"></i> Anterior
+                    </a>
+                </li>
+                @{
+                    int inicio = Math.Max(1, Model.PageIndex - 2);
+                    int fin = Math.Min(Model.TotalPages, inicio + 4);
+                }
+                @for (int i = inicio; i <= fin; i++)
+                {
+                    <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-pagina="@i"
+                           asp-route-buscar="@ViewBag.Buscar" asp-route-idCliente="@ViewBag.IdCliente">@i</a>
+                    </li>
+                }
+                <li class="page-item @(!Model.HasNextPage ? "disabled" : "")">
+                    <a class="page-link" asp-action="Index" asp-route-pagina="@(Model.PageIndex + 1)"
+                       asp-route-buscar="@ViewBag.Buscar" asp-route-idCliente="@ViewBag.IdCliente">
+                        Siguiente <i class="bi bi-chevron-right"></i>
+                    </a>
+                </li>
+                <li class="page-item @(!Model.HasNextPage ? "disabled" : "")">
+                    <a class="page-link" asp-action="Index" asp-route-pagina="@Model.TotalPages"
+                       asp-route-buscar="@ViewBag.Buscar" asp-route-idCliente="@ViewBag.IdCliente">
+                        <i class="bi bi-chevron-double-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    }
+}

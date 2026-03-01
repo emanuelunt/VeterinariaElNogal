@@ -1,0 +1,99 @@
+@model VeterinariaGestion.Core.Entities.Turno
+@{
+    ViewData["Title"] = "Detalle de Turno";
+    var badge = Model.EstadoTurno switch
+    {
+        "Pendiente" => "bg-warning text-dark",
+        "Confirmado" => "bg-info",
+        "Atendido" => "bg-success",
+        "Cancelado" => "bg-danger",
+        _ => "bg-secondary"
+    };
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>
+        <i class="bi bi-calendar-check text-primary"></i>
+        Turno #@Model.IdTurno
+        <span class="badge @badge ms-2">@Model.EstadoTurno</span>
+    </h2>
+    <div class="d-flex gap-2">
+        <a asp-action="Editar" asp-route-id="@Model.IdTurno" class="btn btn-warning">
+            <i class="bi bi-pencil"></i> Editar
+        </a>
+        <form asp-action="Eliminar" method="post" class="d-inline"
+              onsubmit="return confirm('Desea cancelar este turno?')">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="id" value="@Model.IdTurno" />
+            <button type="submit" class="btn btn-danger">
+                <i class="bi bi-x-circle"></i> Cancelar
+            </button>
+        </form>
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Volver
+        </a>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-6">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-primary text-white">
+                <i class="bi bi-info-circle"></i> Datos del Turno
+            </div>
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-5">Fecha</dt>
+                    <dd class="col-sm-7">@(Model.Fecha?.ToString("dd/MM/yyyy") ?? "-")</dd>
+
+                    <dt class="col-sm-5">Hora</dt>
+                    <dd class="col-sm-7">@Model.HoraTurno</dd>
+
+                    <dt class="col-sm-5">Estado</dt>
+                    <dd class="col-sm-7"><span class="badge @badge">@Model.EstadoTurno</span></dd>
+
+                    <dt class="col-sm-5">Motivo</dt>
+                    <dd class="col-sm-7">@(Model.Motivo ?? "-")</dd>
+
+                    <dt class="col-sm-5">Observacion</dt>
+                    <dd class="col-sm-7">@(Model.Observacion ?? "-")</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card shadow-sm mb-3">
+            <div class="card-header bg-info text-white">
+                <i class="bi bi-heart-pulse"></i> Mascota
+            </div>
+            <div class="card-body">
+                <p class="mb-1"><strong>@(Model.Mascota?.Nombre ?? "-")</strong></p>
+                <p class="mb-1">Especie: @(Model.Mascota?.Especie?.Descripcion ?? "-")</p>
+                <p class="mb-0">
+                    Cliente:
+                    <a asp-controller="Clientes" asp-action="Detalle" asp-route-id="@Model.Mascota?.IdCliente">
+                        @(Model.Mascota?.Cliente?.NombreCompleto ?? "-")
+                    </a>
+                </p>
+            </div>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-header bg-success text-white">
+                <i class="bi bi-journal-medical"></i> Historial Asociado
+            </div>
+            <div class="card-body">
+                @if (Model.Historial is null)
+                {
+                    <p class="text-muted mb-0">Este turno aun no tiene historial asociado.</p>
+                }
+                else
+                {
+                    <p class="mb-1"><strong>Fecha:</strong> @(Model.Historial.FechaConsulta?.ToString("dd/MM/yyyy") ?? "-")</p>
+                    <p class="mb-0"><strong>Motivo:</strong> @(Model.Historial.MotivoConsulta ?? "-")</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>

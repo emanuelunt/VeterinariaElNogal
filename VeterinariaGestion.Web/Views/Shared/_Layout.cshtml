@@ -82,6 +82,8 @@
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" asp-controller="Ventas" asp-action="Index">Listado</a></li>
                                 <li><a class="dropdown-item" asp-controller="Ventas" asp-action="Crear">Nueva Venta</a></li>
+                                <li><a class="dropdown-item" asp-controller="Cuotas" asp-action="Index">Cuotas</a></li>
+                                <li><a class="dropdown-item" asp-controller="CuentasCorrientes" asp-action="Index">Cuenta Corriente</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -89,11 +91,17 @@
                                 <i class="bi bi-heart-pulse"></i> Clínica
                             </a>
                             <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-controller="Especies" asp-action="Index">Especies</a></li>
                                 <li><a class="dropdown-item" asp-controller="Mascotas" asp-action="Index">Mascotas</a></li>
                                 <li><a class="dropdown-item" asp-controller="Turnos" asp-action="Index">Turnos</a></li>
                                 <li><a class="dropdown-item" asp-controller="Historial" asp-action="Index">Historiales</a>
                                 </li>
                             </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Usuarios" asp-action="Index">
+                                <i class="bi bi-person-gear"></i> Usuarios
+                            </a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">

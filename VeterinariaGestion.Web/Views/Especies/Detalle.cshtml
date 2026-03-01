@@ -1,0 +1,112 @@
+@model VeterinariaGestion.Core.Entities.Especie
+@{
+    ViewData["Title"] = "Detalle de Especie";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>
+        <i class="bi bi-heart text-primary"></i> @(Model.Descripcion ?? "Especie")
+    </h2>
+    <div class="d-flex gap-2">
+        <a asp-action="Editar" asp-route-id="@Model.IdEspecie" class="btn btn-warning">
+            <i class="bi bi-pencil"></i> Editar
+        </a>
+        <form asp-action="CambiarEstado" method="post" class="d-inline">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="id" value="@Model.IdEspecie" />
+            <button type="submit"
+                    class="btn @(Model.Estado == 1 ? "btn-outline-danger" : "btn-outline-success")">
+                @if (Model.Estado == 1)
+                {
+                    <i class="bi bi-x-circle"></i>
+                    <span>Desactivar</span>
+                }
+                else
+                {
+                    <i class="bi bi-check-circle"></i>
+                    <span>Activar</span>
+                }
+            </button>
+        </form>
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Volver
+        </a>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-primary text-white">
+                <i class="bi bi-info-circle"></i> Informacion
+            </div>
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-5">ID</dt>
+                    <dd class="col-sm-7 text-muted">#@Model.IdEspecie</dd>
+
+                    <dt class="col-sm-5">Descripcion</dt>
+                    <dd class="col-sm-7"><strong>@(Model.Descripcion ?? "-")</strong></dd>
+
+                    <dt class="col-sm-5">Estado</dt>
+                    <dd class="col-sm-7">
+                        <span class="badge @(Model.Estado == 1 ? "bg-success" : "bg-secondary") fs-6">
+                            @(Model.Estado == 1 ? "Activo" : "Inactivo")
+                        </span>
+                    </dd>
+
+                    <dt class="col-sm-5">Mascotas</dt>
+                    <dd class="col-sm-7">
+                        <span class="badge bg-primary fs-6">
+                            @Model.Mascotas.Count(m => m.Estado == 1) activas
+                        </span>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-success text-white">
+                <i class="bi bi-paw"></i> Mascotas de esta Especie
+            </div>
+            <div class="card-body p-0">
+                @{
+                    var mascotasActivas = Model.Mascotas.Where(m => m.Estado == 1).ToList();
+                }
+                @if (!mascotasActivas.Any())
+                {
+                    <p class="text-muted p-3 mb-0">
+                        <i class="bi bi-info-circle"></i>
+                        No hay mascotas activas en esta especie.
+                    </p>
+                }
+                else
+                {
+                    <table class="table table-sm table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Cliente</th>
+                                <th>Sexo</th>
+                                <th>Nacimiento</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var m in mascotasActivas.OrderBy(m => m.Nombre))
+                            {
+                                <tr>
+                                    <td><strong>@(m.Nombre ?? "-")</strong></td>
+                                    <td>@(m.Cliente?.NombreCompleto ?? "-")</td>
+                                    <td>@(m.Sexo ?? "-")</td>
+                                    <td>@(m.FechaNaci?.ToString("dd/MM/yyyy") ?? "-")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+</div>

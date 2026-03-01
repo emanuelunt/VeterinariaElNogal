@@ -13,3 +13,4 @@ D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestio
 D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Infrastructure\obj\Debug\net9.0\refint\VeterinariaGestion.Infrastructure.dll
 D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Infrastructure\obj\Debug\net9.0\VeterinariaGestion.Infrastructure.pdb
 D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Infrastructure\obj\Debug\net9.0\ref\VeterinariaGestion.Infrastructure.dll
+D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Infrastructure\obj\Debug\net9.0\VeterinariaGestion.Infrastructure.sourcelink.json

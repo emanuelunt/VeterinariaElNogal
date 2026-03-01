@@ -1,0 +1,59 @@
+@model VeterinariaGestion.Core.Entities.Especie
+@{
+    ViewData["Title"] = "Eliminar Especie";
+}
+
+<h2 class="mb-4 text-danger">
+    <i class="bi bi-exclamation-triangle"></i> Eliminar Especie
+</h2>
+
+<div class="card shadow-sm border-danger" style="max-width:550px">
+    <div class="card-header bg-danger text-white">
+        Esta seguro que desea eliminar esta especie?
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-4">ID</dt>
+            <dd class="col-sm-8 text-muted">#@Model.IdEspecie</dd>
+
+            <dt class="col-sm-4">Descripcion</dt>
+            <dd class="col-sm-8"><strong>@(Model.Descripcion ?? "-")</strong></dd>
+
+            <dt class="col-sm-4">Estado</dt>
+            <dd class="col-sm-8">
+                <span class="badge @(Model.Estado == 1 ? "bg-success" : "bg-secondary")">
+                    @(Model.Estado == 1 ? "Activo" : "Inactivo")
+                </span>
+            </dd>
+        </dl>
+
+        @if (Model.Mascotas.Any())
+        {
+            <div class="alert alert-warning">
+                <i class="bi bi-exclamation-triangle"></i>
+                Esta especie tiene <strong>@Model.Mascotas.Count mascota(s)</strong> asociada(s).
+                No se puede eliminar fisicamente, solo se <strong>desactivara</strong>.
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-danger">
+                <i class="bi bi-trash"></i>
+                Esta especie no tiene mascotas asociadas y sera
+                <strong>eliminada permanentemente</strong>.
+            </div>
+        }
+
+        <form asp-action="Eliminar" method="post" class="d-flex gap-2 mt-3">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="IdEspecie" />
+            <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash"></i>
+                @(Model.Mascotas.Any() ? "Desactivar" : "Eliminar definitivamente")
+            </button>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Cancelar
+            </a>
+        </form>
+    </div>
+</div>

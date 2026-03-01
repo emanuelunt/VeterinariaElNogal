@@ -1,0 +1,51 @@
+@model VeterinariaGestion.Core.Entities.Usuario
+@{
+    ViewData["Title"] = "Detalle de Usuario";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-person-badge text-primary"></i> @Model.NombreUsuario</h2>
+    <div class="d-flex gap-2">
+        <a asp-action="Editar" asp-route-id="@Model.IdUsuario" class="btn btn-warning">
+            <i class="bi bi-pencil"></i> Editar
+        </a>
+        <form asp-action="CambiarEstado" method="post" class="d-inline">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="id" value="@Model.IdUsuario" />
+            <button type="submit" class="btn @(Model.Activo == 1 ? "btn-outline-danger" : "btn-outline-success")">
+                @(Model.Activo == 1 ? "Desactivar" : "Activar")
+            </button>
+        </form>
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Volver
+        </a>
+    </div>
+</div>
+
+<div class="card shadow-sm" style="max-width:700px">
+    <div class="card-header bg-primary text-white">
+        <i class="bi bi-info-circle"></i> Datos del Usuario
+    </div>
+    <div class="card-body">
+        <dl class="row mb-0">
+            <dt class="col-sm-4">ID</dt>
+            <dd class="col-sm-8 text-muted">#@Model.IdUsuario</dd>
+
+            <dt class="col-sm-4">Usuario</dt>
+            <dd class="col-sm-8"><strong>@Model.NombreUsuario</strong></dd>
+
+            <dt class="col-sm-4">Email</dt>
+            <dd class="col-sm-8">@Model.Email</dd>
+
+            <dt class="col-sm-4">Fecha de Creación</dt>
+            <dd class="col-sm-8">@(Model.FechaCreacion?.ToString("dd/MM/yyyy HH:mm") ?? "-")</dd>
+
+            <dt class="col-sm-4">Estado</dt>
+            <dd class="col-sm-8">
+                <span class="badge @(Model.Activo == 1 ? "bg-success" : "bg-secondary")">
+                    @(Model.Activo == 1 ? "Activo" : "Inactivo")
+                </span>
+            </dd>
+        </dl>
+    </div>
+</div>

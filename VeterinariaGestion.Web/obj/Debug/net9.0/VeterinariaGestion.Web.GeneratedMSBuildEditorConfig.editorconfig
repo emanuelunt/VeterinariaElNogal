@@ -40,12 +40,96 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/CuentasCorrientes/Crear.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VlbnRhc0NvcnJpZW50ZXNcQ3JlYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/CuentasCorrientes/Detalle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VlbnRhc0NvcnJpZW50ZXNcRGV0YWxsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/CuentasCorrientes/Editar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VlbnRhc0NvcnJpZW50ZXNcRWRpdGFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/CuentasCorrientes/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VlbnRhc0NvcnJpZW50ZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/Cuotas/Crear.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VvdGFzXENyZWFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/Cuotas/Detalle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VvdGFzXERldGFsbGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/Cuotas/Editar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VvdGFzXEVkaXRhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/Cuotas/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VvdGFzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/Especies/Crear.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXNwZWNpZXNcQ3JlYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/Especies/Detalle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXNwZWNpZXNcRGV0YWxsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/Especies/Editar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXNwZWNpZXNcRWRpdGFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/Especies/Eliminar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXNwZWNpZXNcRWxpbWluYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/Especies/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXNwZWNpZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/Historial/Crear.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGlzdG9yaWFsXENyZWFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/Historial/Detalle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGlzdG9yaWFsXERldGFsbGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/Historial/Editar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGlzdG9yaWFsXEVkaXRhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/Historial/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGlzdG9yaWFsXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/Mascotas/Crear.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFzY290YXNcQ3JlYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/Mascotas/Detalle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFzY290YXNcRGV0YWxsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/Mascotas/Editar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFzY290YXNcRWRpdGFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/Mascotas/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFzY290YXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/Productos/Crear.cshtml]
@@ -110,6 +194,38 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/Tipos/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb3NcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/Turnos/Crear.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHVybm9zXENyZWFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/Turnos/Detalle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHVybm9zXERldGFsbGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/Turnos/Editar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHVybm9zXEVkaXRhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/Turnos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHVybm9zXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/Usuarios/Crear.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcQ3JlYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/Usuarios/Detalle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRGV0YWxsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/Usuarios/Editar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRWRpdGFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/Usuarios/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/SistemasAlumnos/SistemaVeterinariElNogal/VeterinariaElNogal/VeterinariaGestion.Web/Views/Ventas/Crear.cshtml]

@@ -1,0 +1,89 @@
+@model VeterinariaGestion.Core.Entities.Cuota
+@{
+    ViewData["Title"] = "Detalle de Cuota";
+    var badge = Model.EstadoCuota switch
+    {
+        "Pagada" => "bg-success",
+        "Parcial" => "bg-info",
+        "Vencida" => "bg-danger",
+        _ => "bg-warning text-dark"
+    };
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>
+        <i class="bi bi-calendar2-check text-info"></i>
+        Cuota #@Model.IdCuota
+        <span class="badge @badge ms-2">@(Model.EstadoCuota ?? "-")</span>
+    </h2>
+    <div class="d-flex gap-2">
+        <a asp-action="Editar" asp-route-id="@Model.IdCuota" class="btn btn-warning">
+            <i class="bi bi-pencil"></i> Editar
+        </a>
+        <form asp-action="Eliminar" method="post" class="d-inline"
+              onsubmit="return confirm('Desea eliminar esta cuota?')">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="id" value="@Model.IdCuota" />
+            <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash"></i> Eliminar
+            </button>
+        </form>
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Volver
+        </a>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-6">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-info text-white">
+                <i class="bi bi-info-circle"></i> Datos de la Cuota
+            </div>
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-5">N° Cuota</dt>
+                    <dd class="col-sm-7">@Model.NumeroCuota</dd>
+
+                    <dt class="col-sm-5">Vencimiento</dt>
+                    <dd class="col-sm-7">@(Model.FechaVencimiento?.ToString("dd/MM/yyyy") ?? "-")</dd>
+
+                    <dt class="col-sm-5">Fecha de Pago</dt>
+                    <dd class="col-sm-7">@(Model.FechaPago?.ToString("dd/MM/yyyy") ?? "-")</dd>
+
+                    <dt class="col-sm-5">Monto Cuota</dt>
+                    <dd class="col-sm-7">@Model.MontoCuota.ToString("N2")</dd>
+
+                    <dt class="col-sm-5">Interes Mora</dt>
+                    <dd class="col-sm-7">@Model.InteresMora.ToString("N2")</dd>
+
+                    <dt class="col-sm-5">Monto Pagado</dt>
+                    <dd class="col-sm-7">@Model.MontoPagado.ToString("N2")</dd>
+
+                    <dt class="col-sm-5">Saldo Pendiente</dt>
+                    <dd class="col-sm-7 fw-bold">@Model.SaldoPendiente.ToString("N2")</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <i class="bi bi-receipt"></i> Venta Asociada
+            </div>
+            <div class="card-body">
+                <p class="mb-1">
+                    <strong>Venta:</strong>
+                    <a asp-controller="Ventas" asp-action="Detalle" asp-route-id="@Model.IdVenta">
+                        @(Model.Venta?.NumeroVenta ?? ("Venta #" + Model.IdVenta))
+                    </a>
+                </p>
+                <p class="mb-0">
+                    <strong>Cliente:</strong>
+                    @(Model.Venta?.Cliente?.NombreCompleto ?? "Consumidor Final")
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

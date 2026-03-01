@@ -9,3 +9,4 @@ D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestio
 D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Core\obj\Debug\net9.0\refint\VeterinariaGestion.Core.dll
 D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Core\obj\Debug\net9.0\VeterinariaGestion.Core.pdb
 D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Core\obj\Debug\net9.0\ref\VeterinariaGestion.Core.dll
+D:\SistemasAlumnos\SistemaVeterinariElNogal\VeterinariaElNogal\VeterinariaGestion.Core\obj\Debug\net9.0\VeterinariaGestion.Core.sourcelink.json

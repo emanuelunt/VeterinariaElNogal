@@ -1,0 +1,93 @@
+@model VeterinariaGestion.Core.Entities.Historial
+@{
+    ViewData["Title"] = "Editar Historial";
+}
+
+<h2 class="mb-4">
+    <i class="bi bi-pencil-square text-warning"></i> Editar Historial
+</h2>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form asp-action="Editar" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="IdHistorial" />
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div asp-validation-summary="All" class="alert alert-danger"></div>
+            }
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label asp-for="IdMascota" class="form-label fw-bold"></label>
+                    <select asp-for="IdMascota" class="form-select" asp-items="ViewBag.Mascotas" required>
+                        <option value="0">Seleccione mascota...</option>
+                    </select>
+                    <span asp-validation-for="IdMascota" class="text-danger small"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="IdTurno" class="form-label fw-bold"></label>
+                    <select asp-for="IdTurno" class="form-select" asp-items="ViewBag.Turnos">
+                        <option value="">Sin turno asociado</option>
+                    </select>
+                    <span asp-validation-for="IdTurno" class="text-danger small"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="FechaConsulta" class="form-label fw-bold"></label>
+                    <input asp-for="FechaConsulta" type="date" class="form-control" required />
+                    <span asp-validation-for="FechaConsulta" class="text-danger small"></span>
+                </div>
+                <div class="col-md-8">
+                    <label asp-for="MotivoConsulta" class="form-label fw-bold"></label>
+                    <input asp-for="MotivoConsulta" class="form-control" />
+                    <span asp-validation-for="MotivoConsulta" class="text-danger small"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Diagnostico" class="form-label fw-bold"></label>
+                    <textarea asp-for="Diagnostico" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Diagnostico" class="text-danger small"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Tratamiento" class="form-label fw-bold"></label>
+                    <textarea asp-for="Tratamiento" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Tratamiento" class="text-danger small"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Indicacion" class="form-label fw-bold"></label>
+                    <textarea asp-for="Indicacion" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Indicacion" class="text-danger small"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="ProximoControl" class="form-label fw-bold"></label>
+                    <input asp-for="ProximoControl" type="date" class="form-control" />
+                    <span asp-validation-for="ProximoControl" class="text-danger small"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Estado" class="form-label fw-bold"></label>
+                    <select asp-for="Estado" class="form-select">
+                        <option value="1">Activo</option>
+                        <option value="0">Inactivo</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <label asp-for="Observacion" class="form-label fw-bold"></label>
+                    <textarea asp-for="Observacion" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Observacion" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <div class="d-flex gap-2 mt-4">
+                <button type="submit" class="btn btn-warning">
+                    <i class="bi bi-check-circle"></i> Actualizar
+                </button>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
